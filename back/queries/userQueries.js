@@ -18,7 +18,7 @@ const userQueries = {
                          WHERE user_id = ?`,
     logIn: `SELECT *
             FROM User
-            WHERE (user_id = ? and password = ?)`,
+            WHERE (user_id = ? AND password = ?)`,
     updateUserPrivilege: `UPDATE User
                           SET privilege = ?
                           WHERE id = ?`

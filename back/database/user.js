@@ -33,6 +33,11 @@ const user = {
         const [rows] = await pool.query(userQueries.deleteUserById, [id]);
 
         return !!rows;
+    },
+    async logIn(user) {
+        const [rows] = await pool.query(userQueries.logIn, [user.user_id, hashPassword(user.password)]);
+
+        return rows.length ? userModel(rows[0]) : null;
     }
 };
 

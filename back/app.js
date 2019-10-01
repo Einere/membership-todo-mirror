@@ -47,7 +47,9 @@ app.use(cors({
         // 만약 서버 - 서버 api로 사용하고 싶으면 아래와 같이 코딩한다
         // 참고 : https://expressjs.com/en/resources/middleware/cors.html
         // callback(whitelist.indexOf(origin) > -1 || !origin ? null : new Error('Not allowed by CORS'), true);
-    }
+    },
+    methods: "GET, POST, PATCH, DELETE",
+    credentials: true,
 }));
 
 // session
