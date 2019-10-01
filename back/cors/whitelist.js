@@ -1,5 +1,5 @@
 const whitelist = [
-    'http://locahost',
+    'http://localhost:8080',
 ];
 
 module.exports = whitelist;
