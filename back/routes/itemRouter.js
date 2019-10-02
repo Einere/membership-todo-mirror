@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const item = require('../database/index.js').item;
+const {itemDB} = require('../database/index.js');
 const formatFileName = require('../utils/formatFileName.js');
 
 // for form data
@@ -23,38 +23,38 @@ const upload = multer({
 
 
 router.get('/', function (req, res) {
-    item.getAllItems()
+    itemDB.getAllItems()
         .then(result => res.send(result))
         .catch(error => res.send(error));
 });
 
 router.get('/:id', function (req, res) {
-    item.getItemById(req.params.id)
+    itemDB.getItemById(req.params.id)
         .then(result => res.send(result))
         .catch(error => res.send(error));
 });
 
-router.post('/upload', upload.single('src'), function (req, res) {
+router.post('/upload', upload.single('image'), function (req, res) {
     let path = req.file.path.split('/');
     path.shift();
     req.body.src = path.join('/');
-    item.createItem(req.body)
+    itemDB.createItem(req.body)
         .then(result => res.send(result))
         .catch(error => res.send(error));
 });
 
 router.delete('/:id', function (req, res) {
-    item.getItemById(req.params.id)
-        .then(result => item.deleteItem(result.id))
+    itemDB.getItemById(req.params.id)
+        .then(result => itemDB.deleteItem(result.id))
         .then(result => res.send(result))
         .catch(error => res.send(error));
 });
 
 router.patch('/:id', upload.none(), function (req, res) {
-    item.getItemById(req.params.id)
+    itemDB.getItemById(req.params.id)
         .then(result => {
             req.body.id = result.id;
-            return item.updateItem(req.body);
+            return itemDB.updateItem(req.body);
         })
         // 만약 result를 numger형으로 보내면, 상태코드로 오인해서 에러를 뱉는다.
         .then(result => res.send(`${result}`))

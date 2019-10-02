@@ -1,83 +1,84 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../database/index.js').user;
+const {userDB} = require('../database/index.js');
 
 // for form data
 const multer = require('multer');
 const upload = multer();
 
-router.get('/', function (req, res) {
-    user.getAllUsers()
-        .then(result => res.send(result))
-        .catch(error => res.send(error));
+// auth
+const passport = require('../middlewares/passport-local');
+
+
+// 로그인 확인
+router.get('/isLoggedIn', function (req, res) {
+    /*console.log('login check', req.session);
+    res.status(200).send(req.session.loggedInId);*/
+    req.isAuthenticated() ? res.status(200).send(req.user.name) : res.status(204).end();
 });
 
-router.get('/check', function (req, res) {
-    console.log('login check', req.session);
-    res.send(req.session.loggedInId);
-});
-
+// 로그아웃
 router.get('/logOut', function (req, res) {
-    req.session.destroy(function (err) {
-        console.log('aa')
-    });
-    res.send(true);
+    req.session.destroy();
+    res.status(200).send(true);
 });
 
+// 특정 유저 조회 (아이디 중복 확인용)
 router.get('/:userId', function (req, res) {
-    user.getUserByUserId(req.params.userId)
+    userDB.getUserByUserId(req.params.userId)
         .then(result => {
             if (result === null) throw "유저 조회 중 오류가 발생했습니다.";
-            res.send(result);
+            res.status(200).send(result);
         })
         .catch(error => res.send(error));
 });
 
-router.post('/logIn', upload.none(), function (req, res) {
-    user.logIn(req.body)
+// 로그인
+router.post('/logIn', upload.none(), function (req, res, next) {
+    /*user.logIn(req.body)
         .then(result => {
             if (result === null) throw "아이디 및 비멀번호를 확인해주세요.";
             req.session.loggedInId = result.userId;
             req.session.privilege = result.privilege;
-            res.send({
+            res.status(200).send({
                 name: result.name,
                 privilege: result.privilege
             });
         })
-        .catch(error => res.send(error));
+        .catch(error => res.send(error));*/
+    passport.authenticate('localLogIn', (err, user, info) => {
+        if (err) next(err);
+        if (!user) res.status(401).json(info);
+        else {
+            req.login(user, (e) => {
+                if (e) return next(e);
+                res.status(200).send(user);
+            });
+        }
+    })(req, res, next);
 });
 
-router.post('/signUp', upload.none(), function (req, res) {
-    user.createUser(req.body)
+// 회원가입
+router.post('/signUp', upload.none(), function (req, res, next) {
+    /*user.createUser(req.body)
         .then(result => {
             if (result === null) throw "회원가입 중 오류가 발생했습니다.";
-            res.send(result);
+            res.status(200).send(result);
         })
-        .catch(error => res.send(error));
+        .catch(error => res.send(error));*/
+    passport.authenticate('localSignUp', (err, user, info) => {
+        console.log('[userRouter.js] signUp : ', err, user, info);
+        if (err) next(err);
+        if (!user) res.status(401).json(info);
+        else {
+            req.login(user, (e) => {
+                if (e) return next(e);
+                res.status(200).end();
+            });
+        }
+    })(req, res, next);
 });
 
-router.patch('/:userId/:privilege', function (req, res) {
-    user.getUserByUserId(req.params.userId)
-        .then(result => user.updateUserPrivilege({
-            id: result.id,
-            privilege: req.params.privilege
-        }))
-        // 만약 result를 numger형으로 보내면, 상태코드로 오인해서 에러를 뱉는다.
-        .then(result => {
-            if (result === null) throw "권한 수정 중 오류가 발생했습니다.";
-            res.send(`${result}`);
-        })
-        .catch(error => res.send(error));
-});
 
-router.delete('/:userId', function (req, res) {
-    user.getUserByUserId(req.params.userId)
-        .then(result => user.deleteUserById(result.id))
-        .then(result => {
-            if (result === null) throw "유저 삭제 중 오류가 발생했습니다.";
-            res.send(result);
-        })
-        .catch(error => res.send(error));
-});
 
 module.exports = router;

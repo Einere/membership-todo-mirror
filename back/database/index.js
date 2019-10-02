@@ -1,9 +1,9 @@
-const user = require('./user.js');
-const item = require('./item.js');
+const userDB = require('./userDB.js');
+const itemDB = require('./itemDB.js');
 
 const database = {
-    user,
-    item,
+    userDB,
+    itemDB,
 };
 
 module.exports = database;

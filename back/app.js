@@ -22,11 +22,12 @@ redisClient.on('error', (err) => {
 });
 const sessionConfig = require('./session/sessionConfig');
 // auth
-// const passport = require('passport');
+const passport = require('passport');
 // routes
 const indexRouter = require('./routes/indexRouter');
 const usersRouter = require('./routes/userRouter');
 const itemRouter = require('./routes/itemRouter');
+const adminRouter = require('./routes/adminRouter');
 
 const app = express();
 
@@ -56,12 +57,15 @@ app.use(cors({
 app.use(session(sessionConfig(RedisStore, redisClient)));
 
 // passport
+app.use(passport.initialize());
+app.use(passport.session());
 // flash
 
 // routing
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/item', itemRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
