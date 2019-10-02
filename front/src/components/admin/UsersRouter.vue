@@ -8,16 +8,18 @@
         <th>privilege</th>
       </tr>
       <tr v-for="(user, index) in userList" :key="index" class="user"
-          v-if="privilege <= user.user_privilege">
-        <td>{{user.user_id}}</td>
-        <td>{{user.user_name}}</td>
+          v-if="privilege <= user.privilege">
+        <td>{{user.userId}}</td>
+        <td>{{user.name}}</td>
         <td>
-          <select v-on:change="selectEventListener" :index="index"
-                  :eforeValue="user.user_privilege">
-            <option value="0" :selected="0 === user.user_privilege">0</option>
-            <option value="1" :selected="1 === user.user_privilege">1</option>
-            <option value="2" :selected="2 === user.user_privilege">2</option>
-          </select>
+          <label>
+            <select v-on:change="selectEventListener" :index="index"
+                    :eforeValue="user.privilege">
+              <option value="1" :selected="1 === user.privilege">1</option>
+              <option value="2" :selected="2 === user.privilege">2</option>
+              <option value="0" :selected="0 === user.privilege">0</option>
+            </select>
+          </label>
         </td>
       </tr>
     </table>
@@ -32,28 +34,37 @@
             return {
                 userList: [],
                 updateUserList: [],
-                privilege: 0,
+                privilege: 2,
+                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         async created() {
-            const result = await fetch('http://localhost:3000/users', {
-                method: 'GET',
-            });
-            this.userList = await result.json();
-        },
-        mounted() {
-            fetch(`http://localhost:3000/users/check`, {
+            fetch(`${this.url}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => res.json())
                 .then(res => {
-                    if (res.privilege > 1) this.$router.push({name: 'normalHome'});
-                    else this.privilege = res.privilege;
+                    if (res.status !== 200) throw "not privileged!";
+                    return res.json();
                 })
-                .catch(err => {
+                .then(res => this.privilege = res.privilege)
+                .catch(() => {
                     this.$router.push({name: 'normalHome'});
+                });
+        },
+        mounted() {
+            fetch(`${this.url}/admin/users`, {
+                method: 'GET',
+            })
+                .then(res => {
+                    if (res.status !== 200 && res.status !== 304) throw "error in get all users!";
+                    return res.json();
                 })
+                .then(res => {
+                    this.userList = res;
+                })
+                .catch(err => console.log(err));
+            // this.userList = result.json();
         },
         methods: {
             selectEventListener(e) {
@@ -67,7 +78,7 @@
                 if (this.updateUserList.length === 0) alert('변경된 유저가 없습니다.');
                 else {
                     const promises = this.updateUserList.map((user) => {
-                        return fetch(`http://localhost:3000/users/${user.user_id}/${user.update_privilege}`, {
+                        return fetch(`${this.url}/admin/user/${user.userId}/${user.update_privilege}`, {
                             method: 'PATCH',
                         })
                     });

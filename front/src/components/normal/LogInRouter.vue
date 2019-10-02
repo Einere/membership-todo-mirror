@@ -1,8 +1,9 @@
 <template>
   <section class="login">
     <h1>로그인</h1>
-    <input id="login-id" type="text" placeholder="아이디" ref="loginId"/>
-    <input id="login-pw" type="password" placeholder="비밀번호" ref="loginPw"/>
+    <label for="login-id"></label><input id="login-id" type="text" placeholder="아이디" ref="loginId"/>
+    <label for="login-pw"></label><input id="login-pw" type="password" placeholder="비밀번호"
+                                         ref="loginPw"/>
     <span id="login-result"></span>
     <div class="login-button-bar">
       <button id="signUp">회원가입</button>
@@ -38,12 +39,12 @@
                     });
             },
             check() {
-                fetch(`${this.url}/user/check`, {
+                fetch(`${this.url}/user/isLoggedIn`, {
                     method: 'GET',
                     credentials: "include",
                 })
                     .then(res => res.text())
-                    .then((res) => console.log(res));
+                    .then((res) => console.log('[LoginRouter.vue] check() :', res));
             }
         },
         mounted() {

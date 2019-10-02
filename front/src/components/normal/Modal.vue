@@ -49,7 +49,8 @@
         },
         data() {
             return {
-                flag: false
+                flag: false,
+                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         mounted() {
@@ -57,7 +58,7 @@
         },
         methods: {
             openModal(item, flag) {
-                this.$refs.image.src = item.src;
+                this.$refs.image.src = `${this.url}/${item.src}`;
                 this.$refs.src.value = item.src;
                 this.$refs.category.value = item.category;
                 this.$refs.title.value = item.title;
@@ -102,7 +103,7 @@
                 return formData;
             },
             addItem() {
-                fetch(`http://localhost:3000/items/add`, {
+                fetch(`${this.url}/item/upload`, {
                     method: 'POST',
                     credentials: "include",
                     body: this.makeFormData()

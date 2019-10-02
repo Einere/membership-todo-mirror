@@ -5,7 +5,8 @@
     </div>
 
     <div class="nav-bar-link-container">
-      <router-link :to="{ name: 'normalLogIn'}">Log In</router-link>
+      <router-link v-if="loggedInUserName" :to="{ name: 'normalLogIn'}">Log out</router-link>
+      <router-link v-else :to="{ name: 'normalLogIn'}">Log In</router-link>
       <router-link :to="{ name: 'normalSignUp'}">Sign Up</router-link>
       <p id="logged-in-user-name" hidden></p>
     </div>
@@ -16,7 +17,7 @@
     export default {
         name: "NavigationBar",
         props: {
-            'logged-in-user-name': String
+            'loggedInUserName': String
         }
     }
 </script>

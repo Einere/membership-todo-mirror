@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navigation-bar></navigation-bar>
+    <navigation-bar v-bind:loggedInUserName="loggedInUserName"></navigation-bar>
     <!--        <main-container></main-container>-->
     <router-view class="router-view" v-on:setLoggedInUserName="setLoggedInUserName"
                  v-bind:loggedInUserName="loggedInUserName"></router-view>

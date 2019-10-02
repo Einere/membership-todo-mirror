@@ -14,7 +14,7 @@
         <th>delete</th>
       </tr>
       <tr v-for="item in itemList" :key="item.id">
-        <td><img class="card-image" :src="item.src" alt=""></td>
+        <td><img class="card-image" :src="`${url}/${item.src}`" alt=""></td>
         <td>{{item.category}}</td>
         <td>{{item.title}}</td>
         <td>{{item.content}}</td>
@@ -43,19 +43,14 @@
                 item: undefined,
                 modal: undefined,
                 blackout: undefined,
+                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
-        async created() {
-            const result = await fetch('http://localhost:3000/items', {
-                method: 'GET',
-            });
-            this.itemList = await result.json();
-        },
-        mounted() {
+        created() {
             this.modal = document.querySelector(`.popup-modal`);
             this.blackout = document.querySelector('.body-blackout');
 
-            fetch(`http://localhost:3000/users/check`, {
+            fetch(`${this.url}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
@@ -67,9 +62,21 @@
                     this.$router.push({name: 'normalHome'});
                 });
         },
+        async mounted() {
+            const result = await fetch(`${this.url}/item`, {
+                method: 'GET',
+                credentials: "include",
+            });
+            try {
+                this.itemList = await result.json();
+            } catch (err) {
+                console.log(err);
+            }
+
+        },
         methods: {
             deleteItem(id) {
-                fetch(`http://localhost:3000/items/${id}`, {
+                fetch(`${this.url}/item/${id}`, {
                     method: 'DELETE',
                     credentials: "include",
                 })

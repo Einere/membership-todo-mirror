@@ -11,31 +11,32 @@
         name: "HomeRouter",
         data() {
             return {
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/`,
+                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
                 loggedInUserName: '',
             };
         },
         mounted() {
-            fetch(`${this.url}user/check`, {
+            fetch(`${this.url}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => res.json())
                 .then(res => {
-                    if (res.privilege > 1) this.$router.push({name: 'normalHome'});
-                    this.loggedInUserName = res.userName;
+                    if (res.status !== 200) throw "not privileged!";
+                    return res.json();
                 })
+                .then(res => this.loggedInUserName = res.name)
                 .catch(err => {
+                    console.log(err);
                     this.$router.push({name: 'normalHome'});
                 })
         },
         methods: {
             logout() {
-                fetch(`${this.url}user/logout`, {
+                fetch(`${this.url}/user/logOut`, {
                     method: 'GET',
                     credentials: "include",
                 })
-                    .then(res => this.$router.push({name: 'normalHome'}));
+                    .then(() => this.$router.push({name: 'normalHome'}));
             }
         }
     }
