@@ -1,6 +1,6 @@
 const pool = require('./db.js');
 const itemModel = require('../models/itemModel.js');
-const itemQueries = require('../queries/itemQueries.js');
+const itemQueries = require('./SQL/itemQueries.js');
 
 const item = {
     async getAllItems() {
