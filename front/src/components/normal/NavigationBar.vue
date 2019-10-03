@@ -5,6 +5,7 @@
     </div>
 
     <div class="nav-bar-link-container">
+      <router-link v-if="loggedInUserName" :to="{ name: 'normalTodo'}">Todo</router-link>
       <router-link v-if="loggedInUserName" :to="{ name: 'normalLogIn'}">Log out</router-link>
       <router-link v-else :to="{ name: 'normalLogIn'}">Log In</router-link>
       <router-link :to="{ name: 'normalSignUp'}">Sign Up</router-link>
