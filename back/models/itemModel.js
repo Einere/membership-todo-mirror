@@ -7,7 +7,7 @@ const itemModel = (result) => {
         content: result.content,
         href: result.href,
         link: result.link,
-    }
+    };
 };
 
 module.exports = itemModel;
