@@ -3,12 +3,12 @@ const LocalStrategy = require('passport-local').Strategy;
 const {userDB} = require('../database/index.js');
 
 passport.serializeUser((user, done) => {
-    //   console.log('ser', user);
+    console.log('serializeUser', user);
     done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-    //   console.log('des', user);
+    console.log('deserializeUser', user);
     done(null, user);
 });
 

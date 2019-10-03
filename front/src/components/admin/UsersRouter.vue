@@ -38,7 +38,7 @@
                 url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
-        async created() {
+        created() {
             fetch(`${this.url}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
@@ -48,23 +48,19 @@
                     return res.json();
                 })
                 .then(res => this.privilege = res.privilege)
-                .catch(() => {
-                    this.$router.push({name: 'normalHome'});
-                });
+                .catch(() => this.$router.push({name: 'normalHome'}));
         },
         mounted() {
             fetch(`${this.url}/admin/users`, {
                 method: 'GET',
+                credentials: "include",
             })
                 .then(res => {
                     if (res.status !== 200 && res.status !== 304) throw "error in get all users!";
                     return res.json();
                 })
-                .then(res => {
-                    this.userList = res;
-                })
+                .then(res => this.userList = res)
                 .catch(err => console.log(err));
-            // this.userList = result.json();
         },
         methods: {
             selectEventListener(e) {
@@ -80,6 +76,7 @@
                     const promises = this.updateUserList.map((user) => {
                         return fetch(`${this.url}/admin/user/${user.userId}/${user.update_privilege}`, {
                             method: 'PATCH',
+                            credentials: "include",
                         })
                     });
                     Promise.all(promises)

@@ -9,29 +9,29 @@
 </template>
 
 <script>
-    import NavigationBar from "./NavigationBar.vue";
+    import NavigationBar from "../components/normal/NavigationBar.vue";
     // import MainContainer from "./MainContainer.vue";
-    import Footer from "./Footer.vue";
+    import Footer from "../components/normal/Footer.vue";
 
     export default {
         name: "NormalLayout",
         components: {
             NavigationBar,
             // MainContainer,
-            Footer
+            Footer,
         },
         data() {
             return {
-                loggedInUserName: ''
+                loggedInUserName: '',
             };
         },
         methods: {
             setLoggedInUserName(userName) {
                 console.log(`setLoggedInUserName in NormalLayout, ${userName}`);
                 this.loggedInUserName = userName;
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

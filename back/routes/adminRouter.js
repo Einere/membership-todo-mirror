@@ -10,8 +10,8 @@ const upload = multer();
 const passport = require('../middlewares/passport-local');
 const adminAuth = require('../middlewares/adminAuth');
 
-// 오류가 있음..
-// router.use(adminAuth);
+// 관리자 권한 확인
+router.use(adminAuth);
 
 // 권한 확인
 router.get('/isPrivileged', function (req, res) {

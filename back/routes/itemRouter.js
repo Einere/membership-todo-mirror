@@ -61,5 +61,4 @@ router.patch('/:id', upload.none(), function (req, res) {
         .catch(error => res.send(error));
 });
 
-
 module.exports = router;

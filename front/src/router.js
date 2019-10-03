@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import NormalLayout from "./components/normal/NormalLayout";
-import NormalHomeRouter from "./components/normal/HomeRouter";
-import LogInRouter from "./components/normal/LogInRouter";
-import SignUpRouter from "./components/normal/SignUpRouter";
-import AdminLayout from "./components/admin/AdminLayout";
-import AdminHomeRouter from "./components/admin/HomeRouter";
-import AdminUsersRouter from "./components/admin/UsersRouter";
-import AdminItemsRouter from "./components/admin/ItemsRouter";
+import NormalLayout from './views/NormalView.vue';
+import NormalHomeRouter from './components/normal/HomeRouter.vue';
+import LogInRouter from './components/normal/LogInRouter.vue';
+import SignUpRouter from './components/normal/SignUpRouter.vue';
+import AdminLayout from './views/AdminView.vue';
+import AdminHomeRouter from './components/admin/HomeRouter.vue';
+import AdminUsersRouter from './components/admin/UsersRouter.vue';
+import AdminItemsRouter from './components/admin/ItemsRouter.vue';
+import TodoRouter from './components/normal/TodoRouter.vue';
 
 Vue.use(Router);
 
@@ -20,25 +21,30 @@ export default new Router({
       name: 'normalLayout',
       component: NormalLayout,
       redirect: {
-        name: 'normalHome'
+        name: 'normalHome',
       },
       children: [
         {
           path: 'home',
           name: 'normalHome',
-          component: NormalHomeRouter
+          component: NormalHomeRouter,
         },
         {
           path: 'logIn',
           name: 'normalLogIn',
-          component: LogInRouter
+          component: LogInRouter,
         },
         {
           path: 'signUp',
           name: 'normalSignUp',
-          component: SignUpRouter
-        }
-      ]
+          component: SignUpRouter,
+        },
+        {
+          path: 'todo',
+          name: 'normalTodo',
+          component: TodoRouter,
+        },
+      ],
     },
     {
       path: '/about',
@@ -53,25 +59,25 @@ export default new Router({
       name: 'adminLayout',
       component: AdminLayout,
       redirect: {
-        name: 'adminHome'
+        name: 'adminHome',
       },
       children: [
         {
           path: 'home',
           name: 'adminHome',
-          component: AdminHomeRouter
+          component: AdminHomeRouter,
         },
         {
           path: 'users',
           name: 'adminUsers',
-          component: AdminUsersRouter
+          component: AdminUsersRouter,
         },
         {
           path: 'items',
           name: 'adminItems',
-          component: AdminItemsRouter
-        }
-      ]
-    }
+          component: AdminItemsRouter,
+        },
+      ],
+    },
   ],
 });
