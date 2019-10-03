@@ -1,8 +1,8 @@
 const pool = require('./db.js');
-const itemModel = require('../models/itemModel.js');
+const {itemModel} = require('../models/index.js');
 const itemQueries = require('./SQL/itemQueries.js');
 
-const item = {
+const itemDB = {
     async getAllItems() {
         const [rows] = await pool.query(itemQueries.getAllItems);
 
@@ -30,4 +30,4 @@ const item = {
     }
 };
 
-module.exports = item;
+module.exports = itemDB;

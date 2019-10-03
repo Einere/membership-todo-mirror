@@ -1,9 +1,9 @@
 const pool = require('./db.js');
-const userModel = require('../models/userModel.js');
+const {userModel} = require('../models/index.js');
 const userQueries = require('./SQL/userQueries.js');
 const hashPassword = require('../utils/hashPassword.js');
 
-const user = {
+const userDB = {
     async getAllUsers() {
         const [rows] = await pool.query(userQueries.getAllUsers);
 
@@ -41,4 +41,4 @@ const user = {
     }
 };
 
-module.exports = user;
+module.exports = userDB;
