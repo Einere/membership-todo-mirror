@@ -1,5 +1,5 @@
 const pool = require('./db.js');
-const {userModel} = require('../models/index.js');
+const {userModel} = require('./models/index.js');
 const userQueries = require('./SQL/userQueries.js');
 const hashPassword = require('../utils/hashPassword.js');
 

@@ -1,5 +1,5 @@
 const pool = require('./db.js');
-const {itemModel} = require('../models/index.js');
+const {itemModel} = require('./models/index.js');
 const itemQueries = require('./SQL/itemQueries.js');
 
 const itemDB = {
