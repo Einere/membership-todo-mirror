@@ -5,7 +5,7 @@ const todoQueries = {
         getBoardByUserId: 'SELECT * FROM Board WHERE owner = (SELECT id from User WHERE user_id = ?)',
         getSomeCategoriesByBoardId: 'SELECT * FROM Category WHERE board = ?',
         getCategoryById: 'SELECT * FROM Category WHERE id = ?',
-        getNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
+        getSomeNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
         getNoteById: 'SELECT * FROM Note WHERE id = ?',
     },
     create: {
