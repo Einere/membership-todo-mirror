@@ -4,6 +4,7 @@
 </p>
 
 > boostcamp membership - mission 3 : Todo Wap App
+### 🏠 [Homepage]()
 
 ## structure
 ### frontend
@@ -52,7 +53,25 @@
 └── db.json                   # 데이터베이스
 ```
 
-### 🏠 [Homepage]()
+## skill & dependency
+### Backend
+- Node.js
+- Express
+- cors
+- crypto
+- dotenv
+- multer
+- mysql2
+- nodemon
+- passport
+- pm2
+- redis
+- uuid
+
+### Frontend
+- Vue.js
+- vue-router
+- fetch API
 
 ## Install
 
