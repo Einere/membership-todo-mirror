@@ -8,7 +8,8 @@ CREATE TABLE User
     `password`  VARCHAR(20) NOT NULL COMMENT 'password',
     `name`      VARCHAR(20) NOT NULL COMMENT 'name',
     `privilege` INT         NOT NULL COMMENT 'privilege',
-    PRIMARY KEY (id)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `User_UN` (`user_id`)
 );
 
 ALTER TABLE User
@@ -20,7 +21,7 @@ CREATE TABLE Mode
 (
     `id`   INT NOT NULL AUTO_INCREMENT COMMENT 'id',
     `mode` INT NOT NULL COMMENT 'mode',
-    PRIMARY KEY (id)
+    PRIMARY KEY (`id`)
 );
 
 ALTER TABLE Mode
@@ -34,7 +35,8 @@ CREATE TABLE Board
     `name`  VARCHAR(20) NOT NULL COMMENT 'name',
     `owner` INT         NOT NULL COMMENT 'owner',
     `mode`  INT         NOT NULL COMMENT 'mode',
-    PRIMARY KEY (id)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `Board_UN` (`owner`)
 );
 
 ALTER TABLE Board
