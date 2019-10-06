@@ -6,8 +6,8 @@
 > boostcamp membership - mission 3 : Todo Wap App
 ### 🏠 [Homepage]()
 
-## structure
-### frontend
+## Structure
+### Frontend
 ```
 ./
 ├── lib/                      # 구역 별 스타일 시트
@@ -24,14 +24,14 @@
 └── .env                      # 환경변수 설정파일
 ```
 
-### backend
+### Backend
 ```
 ./
 ├── bin/                      # Express 구동
 ├── cors/                     # CORS 관련 설정 파일
 ├── databases/                # 데이터베이스 관련 파일
 |   ├── DDL/                  # DDL    
-|   ├── models/                  # 모델들    
+|   ├── models/               # 모델들    
 |   ├── SQL/                  # SQL 
 |   └── index.js              # DB API 엔트리 포인트
 ├── middlewares/              # 커스텀 미들웨어
@@ -53,7 +53,10 @@
 └── db.json                   # 데이터베이스
 ```
 
-## skill & dependency
+## Design
+![ERD](./ERD.png)
+
+## Skill & Dependency
 ### Backend
 - Node.js
 - Express
