@@ -61,6 +61,7 @@ passport.use(
 
             const user = {
                 name: result.name,
+                userId: result.userId,
                 privilege: result.privilege,
             };
 
