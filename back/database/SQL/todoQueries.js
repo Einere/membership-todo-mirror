@@ -7,11 +7,14 @@ const todoQueries = {
         getCategoryById: 'SELECT * FROM Category WHERE id = ?',
         getSomeNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
         getNoteById: 'SELECT * FROM Note WHERE id = ?',
+        getModeById: 'SELECT * FROM Mode WHERE id = ?',
+        getModeByMode: 'SELECT * FROM Mode WHERE mode = ?'
     },
     create: {
         createBoard: 'INSERT INTO Board (name, owner, mode) VALUES (?, ?, ?)',
         createCategory: 'INSERT INTO Category (name, board) VALUES (?, ?)',
         createNote: 'INSERT INTO Note (content, position, category, author) VALUES (?, ?, ?, ?)',
+        createMode: 'INSERT INTO Mode (mode) VALUES (?)'
     },
     update: {
         updateBoardModeById: 'UPDATE Board SET mode = ? WHERE id = ?',
