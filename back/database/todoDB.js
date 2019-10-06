@@ -33,8 +33,8 @@ const todoDB = {
 
         return rows ? this.getCategoryById(rows.insertId) : null;
     },
-    async getSomeCategoriesByBoardId(boardId) {
-        const [rows] = await pool.query(todoQueries.select.getSomeCategoriesByBoardId, [boardId]);
+    async getCategoriesByBoardId(boardId) {
+        const [rows] = await pool.query(todoQueries.select.getCategoriesByBoardId, [boardId]);
 
         return rows.length ? rows.map((row) => categoryModel(row)) : null;
     },
