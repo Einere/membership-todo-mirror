@@ -18,6 +18,11 @@ const todoDB = {
 
         return rows.length ? boardModel(rows[0]) : null;
     },
+    async updateBoardNameById(id, name) {
+        const [rows] = await pool.query(todoQueries.update.updateBoardNameById, [name, id]);
+
+        return rows.changedRows ? rows.changedRows : null;
+    },
     async updateBoardModeById(id, mode) {
         const [rows] = await pool.query(todoQueries.update.updateBoardModeById, [mode, id]);
 
@@ -93,6 +98,26 @@ const todoDB = {
         const [rows] = await pool.query(todoQueries.delete.deleteNoteById, [id]);
 
         return !!rows;
+    },
+    async getModeById(id) {
+        const [rows] = await pool.query(todoQueries.select.getModeById, [id]);
+
+        return rows.length ? modeModel(rows[0]) : null;
+    },
+    async getModeByMode(mode) {
+        const [rows] = await pool.query(todoQueries.select.getModeByMode, [mode]);
+
+        return rows.length ? modeModel(rows[0]) : null;
+    },
+    async createMode(mode) {
+        const [rows] = await pool.query(todoQueries.create.createMode, [mode]);
+
+        return rows ? this.getModeById(rows.insertId) : null;
+    },
+    async updateModeById(id, mode) {
+        const [rows] = await pool.query(todoQueries.update.updateModeById, [mode, id]);
+
+        return rows.changedRows ? rows.changedRows : null;
     }
 };
 
