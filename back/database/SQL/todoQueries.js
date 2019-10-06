@@ -3,9 +3,9 @@ const todoQueries = {
         getAllBoards: 'SELECT * FROM Board',
         getBoardById: 'SELECT * FROM Board WHERE id = ?',
         getBoardByUserId: 'SELECT * FROM Board WHERE owner = (SELECT id from User WHERE user_id = ?)',
-        getSomeCategoriesByBoardId: 'SELECT * FROM Category WHERE board = ?',
+        getCategoriesByBoardId: 'SELECT * FROM Category WHERE board = ?',
         getCategoryById: 'SELECT * FROM Category WHERE id = ?',
-        getSomeNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
+        getNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
         getNoteById: 'SELECT * FROM Note WHERE id = ?',
         getModeById: 'SELECT * FROM Mode WHERE id = ?',
         getModeByMode: 'SELECT * FROM Mode WHERE mode = ?'
@@ -23,6 +23,7 @@ const todoQueries = {
         updateNoteContentById: 'UPDATE Note SET content = ? WHERE id = ?',
         updateNoteCategoryById: 'UPDATE Note SET category = ? WHERE id = ?',
         updateNotePositionById: 'UPDATE Note SET position = ? WHERE id = ?',
+        updateModeById: 'UPDATE Mode SET mode = ? WHERE id = ?'
     },
     delete: {
         deleteBoardById: 'DELETE FROM Board WHERE id = ?',
