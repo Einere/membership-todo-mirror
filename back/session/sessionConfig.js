@@ -9,7 +9,7 @@ const sessionConfig = (RedisStore, redisClient) => {
         saveUninitialized: true,
         cookie: {
             httpOnly: true,
-            secure: true
+            secure: false
         },
         unset: 'destroy',
         store: new RedisStore({

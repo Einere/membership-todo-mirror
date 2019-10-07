@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-    console.log('[adminAuth.js]', req.isAuthenticated());
+    console.log('[adminAuth.js]', req.session, req.isAuthenticated());
     if (!req.isAuthenticated()) {
         res.status(401).end();
     } else if (req.user.privilege > 1) {
