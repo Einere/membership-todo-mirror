@@ -20,16 +20,16 @@
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => {
-                    if (res.status !== 200) throw "not privileged!";
-                    return res.json();
+                .then(result => {
+                    if (result.status !== 200) throw "not privileged!";
+                    return result.json();
                 })
-                .then(res => this.$store.dispatch('login', {
-                    userId: res.userId,
-                    userName: res.name
+                .then(result => this.$store.dispatch('login', {
+                    userId: result.userId,
+                    userName: result.name
                 }))
-                .catch(err => {
-                    console.log(err);
+                .catch(error => {
+                    console.log(error);
                     this.$router.push({name: 'normalHome'});
                 })
         },

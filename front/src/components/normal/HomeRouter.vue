@@ -31,7 +31,7 @@
                     method: 'GET',
                     credentials: "include",
                 })
-                    .then(res => res.text())
+                    .then(result => result.text())
                     .then(() => {
                         this.$store.dispatch('logout');
                         this.$router.push({name: 'normalLogIn'});

@@ -54,9 +54,9 @@
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.privilege > 1) this.$router.push({name: 'normalHome'});
+                .then(result => result.json())
+                .then(result => {
+                    if (result.privilege > 1) this.$router.push({name: 'normalHome'});
                 })
                 .catch(() => {
                     this.$router.push({name: 'normalHome'});
@@ -69,8 +69,8 @@
             });
             try {
                 this.itemList = await result.json();
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.log(error);
             }
 
         },
@@ -80,7 +80,7 @@
                     method: 'DELETE',
                     credentials: "include",
                 })
-                    .then(res => res.json())
+                    .then(result => result.json())
                     .then(() => {
                         this.$router.go();
                     })

@@ -32,9 +32,12 @@
                     credentials: "include",
                     body: formData
                 })
-                    .then(res => res.json())
-                    .then(res => {
-                        this.$store.dispatch('login', {userId: res.userId, userName: res.name});
+                    .then(result => result.json())
+                    .then(result => {
+                        this.$store.dispatch('login', {
+                            userId: result.userId,
+                            userName: result.name
+                        });
                         this.$router.push({name: 'normalHome'});
                     });
             },
@@ -43,8 +46,8 @@
                     method: 'GET',
                     credentials: "include",
                 })
-                    .then(res => res.text())
-                    .then((res) => console.log('[LoginRouter.vue] check() :', res));
+                    .then(result => result.text())
+                    .then(result => console.log('[LoginRouter.vue] check() :', result));
             }
         },
         mounted() {

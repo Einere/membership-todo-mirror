@@ -82,7 +82,7 @@
                     method: 'PATCH',
                     credentials: "include",
                 })
-                    .then(res => res.json())
+                    .then(result => result.json())
                     .then(() => {
                         this.$router.go();
                     })
@@ -108,7 +108,7 @@
                     credentials: "include",
                     body: this.makeFormData()
                 })
-                    .then(res => res.json())
+                    .then(result => result.json())
                     .then(() => {
                         this.$router.go();
                     })

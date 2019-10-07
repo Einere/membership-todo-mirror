@@ -43,11 +43,11 @@
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => {
-                    if (res.status !== 200) throw "not privileged!";
-                    return res.json();
+                .then(result => {
+                    if (result.status !== 200) throw "not privileged!";
+                    return result.json();
                 })
-                .then(res => this.privilege = res.privilege)
+                .then(result => this.privilege = result.privilege)
                 .catch(() => this.$router.push({name: 'normalHome'}));
         },
         mounted() {
@@ -55,12 +55,12 @@
                 method: 'GET',
                 credentials: "include",
             })
-                .then(res => {
-                    if (res.status !== 200 && res.status !== 304) throw "error in get all users!";
-                    return res.json();
+                .then(result => {
+                    if (result.status !== 200 && result.status !== 304) throw "error in get all users!";
+                    return result.json();
                 })
-                .then(res => this.userList = res)
-                .catch(err => console.log(err));
+                .then(result => this.userList = result)
+                .catch(error => console.log(error));
         },
         methods: {
             selectEventListener(e) {
@@ -83,8 +83,8 @@
                         .then(value => {
                             console.log(`promise all`, value);
                         })
-                        .catch(err => {
-                            console.log(`promise all`, err);
+                        .catch(error => {
+                            console.log(`promise all`, error);
                         })
                 }
             }
