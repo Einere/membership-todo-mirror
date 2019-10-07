@@ -43,14 +43,18 @@
 2. 배포하기 (update후 git, node, pm2 설치)
 
 ### 19.10.05
-1. 투두 API 구현하기 (`todoDB.js`)
-2. 배포하기 (서버)
+1. 배포하기 (서버)
 
 ### 19.10.06
-1. 투두 API 테스트하기
-2. 배포하기 (프론트)
+1. 배포하기 (프론트) (ACG에서 8080포트 연 뒤, ssh에서 npm run serve실행) 
+2. 투두 API 구현하기 (board, category)
+
+### 19.10.07
+1. 투두 API 구현하기 (note)
 2. 투두 화면 구현하기
-3. 초기화 스크립트 작성하기 (`initializeDB.sql`)
+3. 초기화 SQL 작성하기 (`initializeDB.sql`)
+4. NCloud에 mysql 설치하기
+5. 초기화 스크립트 작성하기
 
 ### 언젠가 할 것
 1. `Modal.vue` 컴포넌트 모듈화하기(원하는 내용 끼워넣을 수 있도록..)

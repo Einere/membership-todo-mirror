@@ -53,6 +53,11 @@ const todoDB = {
 
         return rows.changedRows ? rows.changedRows : null;
     },
+    async getMaxPositionByCategoryId(categoryId) {
+        const [rows] = await pool.query(todoQueries.select.getMaxPositionByCategoryId, [categoryId]);
+
+        return rows.length ? noteModel(rows[0]) : null;
+    },
     async deleteCategoryById(id) {
         const [rows] = await pool.query(todoQueries.delete.deleteCategoryById, [id]);
 
@@ -63,8 +68,8 @@ const todoDB = {
 
         return rows ? this.getNoteById(rows.insertId) : null;
     },
-    async getSomeNotesByCategoryId(categoryId) {
-        const [rows] = await pool.query(todoQueries.select.getSomeNotesByCategoryId, [categoryId]);
+    async getNotesByCategoryId(categoryId) {
+        const [rows] = await pool.query(todoQueries.select.getNotesByCategoryId, [categoryId]);
 
         return rows.length ? rows.map((row) => noteModel(row)) : null;
     },

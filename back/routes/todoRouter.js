@@ -3,7 +3,8 @@ const router = express.Router();
 
 // router
 const boardRouter = require('./todo/boardRouter');
-const categoryRouer = require('./todo/categoryRouter');
+const categoryRouter = require('./todo/categoryRouter');
+const noteRouter = require('./todo/noteRouter');
 
 // auth
 const normalUserAuth = require('../middlewares/normalUserAuth');
@@ -12,6 +13,7 @@ const normalUserAuth = require('../middlewares/normalUserAuth');
 // router.use(normalUserAuth);
 
 router.use('/board', boardRouter);
-router.use('/category', categoryRouer);
+router.use('/category', categoryRouter);
+router.use('/note', noteRouter);
 
 module.exports = router;

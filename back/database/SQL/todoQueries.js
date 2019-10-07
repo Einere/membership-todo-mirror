@@ -6,6 +6,7 @@ const todoQueries = {
         getCategoriesByBoardId: 'SELECT * FROM Category WHERE board = ?',
         getCategoryById: 'SELECT * FROM Category WHERE id = ?',
         getNotesByCategoryId: 'SELECT * FROM Note WHERE category = ?',
+        getMaxPositionByCategoryId: 'SELECT position FROM Note WHERE category = ? ORDER BY position DESC',
         getNoteById: 'SELECT * FROM Note WHERE id = ?',
         getModeById: 'SELECT * FROM Mode WHERE id = ?',
         getModeByMode: 'SELECT * FROM Mode WHERE mode = ?'
