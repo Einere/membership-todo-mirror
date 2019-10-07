@@ -10,7 +10,24 @@
 
 <script>
     export default {
-        name: "TodoCategory"
+        name: "TodoCategory",
+        props: {
+            category: Object
+        },
+        data() {
+            return {
+                notes: [],
+            };
+        },
+        mounted() {
+            fetch(`${this.$store.state.baseURL}/todo/note/${this.category.id}`, {
+                method: 'GET',
+                credentials: "include",
+            })
+                .then(result => result.json())
+                .then(result => this.notes = result)
+                .catch(error => console.log(error));
+        }
     }
 </script>
 
