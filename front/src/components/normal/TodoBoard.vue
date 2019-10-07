@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Todo Board</h2>
-    <p>Board name : xxx, Owner : xxx</p>
+    <p>Board name : xxx, Owner : {{this.$store.state.userName}}</p>
     <section class="category-container">
       <todo-category></todo-category>
       <todo-category></todo-category>

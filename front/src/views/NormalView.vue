@@ -1,9 +1,8 @@
 <template>
   <div>
-    <navigation-bar v-bind:loggedInUserName="loggedInUserName"></navigation-bar>
+    <navigation-bar></navigation-bar>
     <!--        <main-container></main-container>-->
-    <router-view class="router-view" v-on:setLoggedInUserName="setLoggedInUserName"
-                 v-bind:loggedInUserName="loggedInUserName"></router-view>
+    <router-view class="router-view"></router-view>
     <Footer></Footer>
   </div>
 </template>
@@ -22,15 +21,10 @@
         },
         data() {
             return {
-                loggedInUserName: '',
+
             };
         },
-        methods: {
-            setLoggedInUserName(userName) {
-                console.log(`setLoggedInUserName in NormalLayout, ${userName}`);
-                this.loggedInUserName = userName;
-            },
-        },
+        methods: {},
     };
 </script>
 

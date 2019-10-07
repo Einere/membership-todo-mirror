@@ -17,7 +17,6 @@
         },
         data() {
             return {
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         mounted() {
@@ -27,7 +26,7 @@
         },
         methods: {
             logout() {
-                fetch(`${this.url}/user/logOut`, {
+                fetch(`${this.$store.state.baseURL}/user/logOut`, {
                     method: 'GET',
                     credentials: "include",
                 })

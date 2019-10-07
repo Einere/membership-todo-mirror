@@ -18,7 +18,6 @@
         name: "LogInRouter",
         data() {
             return {
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         methods: {
@@ -27,7 +26,7 @@
                 formData.append('user_id', this.$refs.loginId.value);
                 formData.append('password', this.$refs.loginPw.value);
 
-                fetch(`${this.url}/user/logIn`, {
+                fetch(`${this.$store.state.baseURL}/user/logIn`, {
                     method: 'POST',
                     credentials: "include",
                     body: formData
@@ -42,7 +41,7 @@
                     });
             },
             check() {
-                fetch(`${this.url}/user/isLoggedIn`, {
+                fetch(`${this.$store.state.baseURL}/user/isLoggedIn`, {
                     method: 'GET',
                     credentials: "include",
                 })

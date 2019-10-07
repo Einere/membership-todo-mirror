@@ -43,14 +43,13 @@
                 item: undefined,
                 modal: undefined,
                 blackout: undefined,
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         created() {
             this.modal = document.querySelector(`.popup-modal`);
             this.blackout = document.querySelector('.body-blackout');
 
-            fetch(`${this.url}/admin/isPrivileged`, {
+            fetch(`${this.$store.state.baseURL}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
@@ -63,7 +62,7 @@
                 });
         },
         async mounted() {
-            const result = await fetch(`${this.url}/item`, {
+            const result = await fetch(`${this.$store.state.baseURL}/item`, {
                 method: 'GET',
                 credentials: "include",
             });
@@ -76,7 +75,7 @@
         },
         methods: {
             deleteItem(id) {
-                fetch(`${this.url}/item/${id}`, {
+                fetch(`${this.$store.state.baseURL}/item/${id}`, {
                     method: 'DELETE',
                     credentials: "include",
                 })

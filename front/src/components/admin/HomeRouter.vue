@@ -11,12 +11,10 @@
         name: "HomeRouter",
         data() {
             return {
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
-                loggedInUserName: '',
             };
         },
         mounted() {
-            fetch(`${this.url}/admin/isPrivileged`, {
+            fetch(`${this.$store.state.baseURL}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
@@ -35,7 +33,7 @@
         },
         methods: {
             logout() {
-                fetch(`${this.url}/user/logOut`, {
+                fetch(`${this.$store.state.baseURL}/user/logOut`, {
                     method: 'GET',
                     credentials: "include",
                 })

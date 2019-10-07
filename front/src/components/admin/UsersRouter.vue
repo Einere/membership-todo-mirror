@@ -35,11 +35,10 @@
                 userList: [],
                 updateUserList: [],
                 privilege: 2,
-                url: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
             };
         },
         created() {
-            fetch(`${this.url}/admin/isPrivileged`, {
+            fetch(`${this.$store.state.baseURL}/admin/isPrivileged`, {
                 method: 'GET',
                 credentials: "include",
             })
@@ -51,7 +50,7 @@
                 .catch(() => this.$router.push({name: 'normalHome'}));
         },
         mounted() {
-            fetch(`${this.url}/admin/users`, {
+            fetch(`${this.$store.state.baseURL}/admin/users`, {
                 method: 'GET',
                 credentials: "include",
             })
@@ -74,7 +73,7 @@
                 if (this.updateUserList.length === 0) alert('변경된 유저가 없습니다.');
                 else {
                     const promises = this.updateUserList.map((user) => {
-                        return fetch(`${this.url}/admin/user/${user.userId}/${user.update_privilege}`, {
+                        return fetch(`${this.$store.state.baseURL}/admin/user/${user.userId}/${user.update_privilege}`, {
                             method: 'PATCH',
                             credentials: "include",
                         })

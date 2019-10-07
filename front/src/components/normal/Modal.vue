@@ -58,7 +58,7 @@
         },
         methods: {
             openModal(item, flag) {
-                this.$refs.image.src = `${this.url}/${item.src}`;
+                this.$refs.image.src = `${this.$store.state.baseURL}/${item.src}`;
                 this.$refs.src.value = item.src;
                 this.$refs.category.value = item.category;
                 this.$refs.title.value = item.title;
@@ -103,7 +103,7 @@
                 return formData;
             },
             addItem() {
-                fetch(`${this.url}/item/upload`, {
+                fetch(`${this.$store.state.baseURL}/item/upload`, {
                     method: 'POST',
                     credentials: "include",
                     body: this.makeFormData()

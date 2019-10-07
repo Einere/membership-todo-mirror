@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     userId: undefined,
     userName: undefined,
+    baseURL: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`
   },
   mutations: {
     login(state, payload) {
@@ -22,7 +23,7 @@ export default new Vuex.Store({
     login({commit, state}, payload) {
       commit('login', payload);
     },
-    logout({commit, state}) {
+    logout({commit}) {
       commit('logout');
     }
   },
