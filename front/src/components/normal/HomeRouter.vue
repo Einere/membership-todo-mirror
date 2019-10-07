@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <h2>welcome!</h2>
-    <span id="user-name">{{loggedInUserName}}</span>
+    <span id="user-name">{{this.$store.state.userName}}</span>
     <button id="logout" v-on:click="logout">로그아웃</button>
   </section>
 </template>
@@ -21,7 +21,7 @@
             };
         },
         mounted() {
-            if (this.loggedInUserName === '') {
+            if (this.$store.state.userId === undefined) {
                 this.$router.push({name: 'normalLogIn'});
             }
         },
@@ -33,7 +33,7 @@
                 })
                     .then(res => res.text())
                     .then(() => {
-                        this.$emit('setLoggedInUserName', '');
+                        this.$store.dispatch('logout');
                         this.$router.push({name: 'normalLogIn'});
                     });
             }

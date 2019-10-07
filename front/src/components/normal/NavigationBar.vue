@@ -5,8 +5,10 @@
     </div>
 
     <div class="nav-bar-link-container">
-      <router-link v-if="loggedInUserName" :to="{ name: 'normalTodo'}">Todo</router-link>
-      <router-link v-if="loggedInUserName" :to="{ name: 'normalLogIn'}">Log out</router-link>
+      {{this.$store.state.userId}}
+      <router-link v-if="this.$store.state.userId" :to="{ name: 'normalTodo'}">Todo</router-link>
+      <router-link v-if="this.$store.state.userId" :to="{ name: 'normalLogIn'}">Log out
+      </router-link>
       <router-link v-else :to="{ name: 'normalLogIn'}">Log In</router-link>
       <router-link :to="{ name: 'normalSignUp'}">Sign Up</router-link>
       <p id="logged-in-user-name" hidden></p>

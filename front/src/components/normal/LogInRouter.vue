@@ -34,7 +34,7 @@
                 })
                     .then(res => res.json())
                     .then(res => {
-                        this.$emit('setLoggedInUserName', res.name);
+                        this.$store.dispatch('login', {userId: res.userId, userName: res.name});
                         this.$router.push({name: 'normalHome'});
                     });
             },

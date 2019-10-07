@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>home</h1>
-    <span>welcome, {{loggedInUserName}}!</span>
+    <span>welcome, {{this.$store.state.userId}}!</span>
     <button v-on:click="logout">log out</button>
   </div>
 </template>
@@ -24,7 +24,10 @@
                     if (res.status !== 200) throw "not privileged!";
                     return res.json();
                 })
-                .then(res => this.loggedInUserName = res.name)
+                .then(res => this.$store.dispatch('login', {
+                    userId: res.userId,
+                    userName: res.name
+                }))
                 .catch(err => {
                     console.log(err);
                     this.$router.push({name: 'normalHome'});
@@ -36,7 +39,10 @@
                     method: 'GET',
                     credentials: "include",
                 })
-                    .then(() => this.$router.push({name: 'normalHome'}));
+                    .then(() => {
+                        this.$store.dispatch('logout');
+                        this.$router.push({name: 'normalHome'})
+                    });
             }
         }
     }
