@@ -35,7 +35,7 @@
   }
 
   .router-view {
-    height: 100%;
+    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Todo Board</h2>
-    <p>Board name : xxx, Owner : {{this.$store.state.userName}}</p>
+    <p>Board name : {{board.name}}, Owner : {{this.$store.state.userName}}</p>
     <section class="category-container">
       <todo-category v-for="category in categories" :key="category.id"
                      :category="category"></todo-category>
