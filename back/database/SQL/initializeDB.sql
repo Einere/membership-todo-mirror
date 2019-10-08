@@ -67,56 +67,56 @@ VALUES ('done3', 2);
 
 # Note
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (1, 'a', 0, 0);
+VALUES (1, 'a', 0, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (1, 'b', 0, 1);
+VALUES (1, 'b', 0, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (1, 'c', 0, 2);
+VALUES (1, 'c', 0, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (2, 'd', 0, 0);
+VALUES (2, 'd', 0, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (2, 'e', 0, 1);
+VALUES (2, 'e', 0, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (2, 'f', 0, 2);
+VALUES (2, 'f', 0, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (3, 'g', 0, 0);
+VALUES (3, 'g', 0, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (3, 'h', 0, 1);
+VALUES (3, 'h', 0, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (3, 'i', 0, 2);
+VALUES (3, 'i', 0, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (4, 'j', 1, 0);
+VALUES (4, 'j', 1, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (4, 'k', 1, 1);
+VALUES (4, 'k', 1, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (4, 'l', 1, 2);
+VALUES (4, 'l', 1, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (5, 'm', 1, 0);
+VALUES (5, 'm', 1, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (5, 'n', 1, 1);
+VALUES (5, 'n', 1, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (5, 'o', 1, 2);
+VALUES (5, 'o', 1, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (6, 'p', 1, 0);
+VALUES (6, 'p', 1, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (6, 'q', 1, 1);
+VALUES (6, 'q', 1, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (6, 'r', 1, 2);
+VALUES (6, 'r', 1, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (7, 'j', 2, 0);
+VALUES (7, 'j', 2, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (7, 'k', 2, 1);
+VALUES (7, 'k', 2, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (7, 'l', 2, 2);
+VALUES (7, 'l', 2, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (8, 'm', 2, 0);
+VALUES (8, 'm', 2, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (8, 'n', 2, 1);
+VALUES (8, 'n', 2, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (8, 'o', 2, 2);
+VALUES (8, 'o', 2, 196608);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (9, 'p', 2, 0);
+VALUES (9, 'p', 2, 65536);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (9, 'q', 2, 1);
+VALUES (9, 'q', 2, 131072);
 INSERT INTO mydb.Note (category, content, author, position)
-VALUES (9, 'r', 2, 2);
+VALUES (9, 'r', 2, 196608);
