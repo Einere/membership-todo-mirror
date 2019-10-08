@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     userId: undefined,
     userName: undefined,
-    baseURL: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`
+    baseURL: `http://${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}`,
+    step: 65536,
   },
   mutations: {
     login(state, payload) {

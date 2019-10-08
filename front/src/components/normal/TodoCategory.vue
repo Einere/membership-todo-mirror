@@ -1,8 +1,10 @@
 <template>
   <section class="category-sub-container">
-    <h3>todo category</h3>
-    <section class="note-container">
-      <note v-for="note in notes" :key="note.id" :note="note"></note>
+    <h3>{{category.name}}</h3>
+    <!-- offset 계산을 정상적으로 하기 위해, self 조건을 추가 -->
+    <section class="note-container" @dragover.prevent.self="dragoverHandler"
+             @drop.prevent.self="dropHandler">
+      <note v-for="note in sortedNotes" :key="note.id" :note="note"></note>
     </section>
   </section>
 
@@ -14,17 +16,59 @@
     export default {
         name: "TodoCategory",
         props: {
-            category: Object
+            category: Object,
         },
         data() {
             return {
                 notes: [],
             };
         },
-        async mounted() {
+        computed: {
+            sortedNotes() {
+                return this.notes.sort((a, b) => a.position - b.position);
+            }
+        },
+        methods: {
+            dragoverHandler(ev) {
+            },
+            dropHandler(ev) {
+                // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
+                const id = ev.dataTransfer.getData("text/plain");
 
-
-            const noteResult = await fetch(`${this.$store.state.baseURL}/todo/note/${this.category.id}`, {
+                // category component에서 해당 note를 제거한 후, 새 category에 넣는다.
+                this.$emit('deleteNote', parseInt(id, 10), this.category.id, this.getProperPosition(this.getProperIndex(ev.offsetY)));
+            },
+            deleteNote(noteId, to, newPosition) {
+                const index = this.notes.findIndex(note => note.id === noteId);
+                if (index > -1) {
+                    const [note] = this.notes.splice(index, 1);
+                    this.$emit('addNote', note, to, newPosition);
+                }
+            },
+            addNote(note, newPosition) {
+                note.position = newPosition;
+                this.notes.push(note);
+            },
+            getProperIndex(offset) {
+                return Math.floor(offset / 54);
+            },
+            getProperPosition(index) {
+                let newPosition = Infinity;
+                if (index === 0) {
+                    newPosition = this.average(0, this.notes[0].position);
+                } else if (1 <= index && index < this.notes.length) {
+                    newPosition = this.average(this.notes[index - 1], this.notes[index]);
+                } else {
+                    newPosition = this.notes[this.notes.length - 1].position + this.$store.state.step;
+                }
+                return newPosition;
+            },
+            average(...numbers) {
+                return numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
+            }
+        },
+        mounted() {
+            fetch(`${this.$store.state.baseURL}/todo/note/${this.category.id}`, {
                 method: 'GET',
                 credentials: "include",
             })
