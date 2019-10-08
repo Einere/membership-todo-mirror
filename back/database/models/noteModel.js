@@ -5,6 +5,7 @@ const noteModel = (result) => {
         position: result.position,
         category: result.category,
         author: result.author,
+        name: result.name
     };
 };
 
