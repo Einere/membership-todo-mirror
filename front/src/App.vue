@@ -102,6 +102,14 @@
     height: 100%;
   }
 
+  svg {
+    cursor: pointer;
+  }
+
+  svg:hover {
+    color: forestgreen;
+  }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
