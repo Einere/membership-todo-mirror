@@ -29,8 +29,10 @@
         },
         methods: {
             dragStartEventHandler(e) {
-                // 데이터 전달 객체에 대상 요소의 id를 추가합니다.
-                e.dataTransfer.setData("text/plain", e.target.id);
+                e.dataTransfer.setData("text/plain", JSON.stringify({
+                    noteId: parseInt(e.target.id, 10),
+                    from: this.category
+                }));
                 e.dataTransfer.setData("application/x-moz-node", e.target);
                 // 직접 노드르 옮길 것이 아니므로, 불필요한 설정인듯?
                 // e.dataTransfer.dropEffect = "move";

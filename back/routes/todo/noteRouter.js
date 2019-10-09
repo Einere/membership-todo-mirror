@@ -34,8 +34,8 @@ router.patch('/content/:noteId', upload.none(), function (req, res) {
         .catch(error => res.send(error));
 });
 
-router.patch('/position/:noteId/:position', function (req, res) {
-    todoDB.updateNotePositionById(req.params.noteId, req.params.position)
+router.patch('/move', upload.none(), function (req, res) {
+    todoDB.moveNoteById(req.body.noteId, req.body.from, req.body.to, req.body.newPosition)
         .then(() => res.send(true))
         .catch(error => res.send(error));
 });

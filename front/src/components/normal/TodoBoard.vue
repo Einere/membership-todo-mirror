@@ -25,11 +25,28 @@
         },
         methods: {
             // from을 얻기 힘든 구조라, 모든 카테고리에 뿌리는 방식으로 결정
-            deleteNote(noteId, to, newPosition) {
-                this.$refs.cate.forEach(cate => cate.deleteNote(noteId, to, newPosition));
+            deleteNote(moveData) {
+                // this.$refs.cate.forEach(cate => cate.deleteNote(moveData));
+                this.$refs.cate.filter(cate => cate.$vnode.key === moveData.from)[0].deleteNote(moveData);
             },
-            addNote(note, to, newPosition) {
-                this.$refs.cate.filter(cate => cate.category.id === to)[0].addNote(note, newPosition);
+            addNote(note, moveData) {
+                console.log('addNote', moveData, this.category);
+                this.$refs.cate.filter(cate => cate.category.id === moveData.to)[0].addNote(note, moveData.newPosition);
+
+                const formData = Object.entries(moveData).reduce((acc, val) => {
+                    acc.append(val[0], val[1].toString());
+                    return acc;
+                }, new FormData());
+
+                // db에 반영
+                fetch(`${this.$store.state.baseURL}/todo/note/move`, {
+                    method: 'PATCH',
+                    credentials: "include",
+                    body: formData
+                })
+                    .then(result => result.json())
+                    .then(result => console.log(result))
+                    .catch(error => console.log(error));
             }
         },
         mounted() {

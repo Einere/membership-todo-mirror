@@ -38,9 +38,8 @@ router.post('/', upload.none(), async function (req, res) {
 router.patch('/name/:name', upload.none(), async function (req, res) {
     try {
         // 수정은 본인만 가능해야 함 => session 이용
-        // const board = await todoDB.getBoardByUserId(req.user.userId);
-        const board = await todoDB.getBoardByUserId(req.body.userId);
-        console.log(board);
+        const board = await todoDB.getBoardByUserId(req.user.userId);
+        // const board = await todoDB.getBoardByUserId(req.body.userId);
 
         if (board) {
             todoDB.updateBoardNameById(board.id, req.params.name)
