@@ -16,7 +16,7 @@
     <!-- offset 계산을 정상적으로 하기 위해, self 조건을 추가 -->
     <section class="note-container" @dragover.prevent.self="dragoverHandler"
              @drop.prevent.self="dropHandler">
-      <note v-for="note in sortedNotes" :key="note.id" :note="note"></note>
+      <note v-for="note in sortedNotes" :key="note.id" :note="note" @removeNote="removeNote"></note>
     </section>
   </section>
 
@@ -135,8 +135,22 @@
             },
             average(...numbers) {
                 return numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
-            }
+            },
             // 노트 삭제 관련 메소드
+            removeNote(noteId) {
+                const index = this.notes.findIndex(note => note.id === noteId);
+                if (index > -1) {
+                    this.notes.splice(index, 1);
+
+                    fetch(`${this.$store.state.baseURL}/todo/note/${noteId}`, {
+                        method: 'DELETE',
+                        credentials: "include",
+                    })
+                        .then(result => result.json())
+                        .then(result => console.log(result))
+                        .catch(error => console.log(error));
+                }
+            },
         },
         mounted() {
             fetch(`${this.$store.state.baseURL}/todo/note/${this.category.id}`, {

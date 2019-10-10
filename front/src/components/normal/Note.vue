@@ -3,9 +3,9 @@
     <span class="note-title">title : {{title}}</span>
     <span class="note-author">author : {{name}}</span>
     <section class="note-button-bar">
-      <font-awesome-icon icon="edit" @click="editNoteConent" v-if="!noteContentEdit"/>
+      <font-awesome-icon icon="edit" @click="editNoteContent" v-if="!noteContentEdit"/>
       <font-awesome-icon icon="save" @click="" v-else/>
-      <font-awesome-icon icon="trash-alt"/>
+      <font-awesome-icon icon="trash-alt" @click="removeNote"/>
     </section>
     <todo-modal v-if="noteContentEdit" @close="saveNoteContent">
       <h3 slot="header">custom header</h3>
@@ -49,7 +49,7 @@
                 // 직접 노드르 옮길 것이 아니므로, 불필요한 설정인듯?
                 // e.dataTransfer.dropEffect = "move";
             },
-            editNoteConent() {
+            editNoteContent() {
                 this.noteContentEdit = true;
             },
             saveNoteContent(flag) {
@@ -73,6 +73,9 @@
             },
             inputNewNoteContent(e) {
                 this.newNoteContent = e.target.value;
+            },
+            removeNote() {
+                this.$emit('removeNote', this.id);
             }
         },
         created() {
