@@ -1,11 +1,17 @@
 <template>
   <section class="category-sub-container">
-    <section class="category-content">
+    <section class="section-container category-content">
       <h3 v-if="!categoryTitleEdit">{{category.name}}</h3>
       <input type="text" v-model="category.name" v-else>
+      <font-awesome-icon icon="plus" @click="showNewNoteSection"/>
       <font-awesome-icon icon="edit" @click="editCategoryTitle" v-if="!categoryTitleEdit"/>
       <font-awesome-icon icon="save" @click="saveCategoryTitle" v-else/>
       <font-awesome-icon icon="trash-alt"/>
+    </section>
+    <section class="section-container new-note-section" v-if="newNoteSectionShow">
+      <textarea v-model="newNoteContent"></textarea>
+      <button @click="addNewNote">add</button>
+      <button @click="cancelNewNote">cancel</button>
     </section>
     <!-- offset 계산을 정상적으로 하기 위해, self 조건을 추가 -->
     <section class="note-container" @dragover.prevent.self="dragoverHandler"
@@ -28,6 +34,8 @@
             return {
                 notes: [],
                 categoryTitleEdit: false,
+                newNoteSectionShow: false,
+                newNoteContent: '',
             };
         },
         computed: {
@@ -36,6 +44,7 @@
             }
         },
         methods: {
+            // 카테고리 관련 메소드
             editCategoryTitle() {
                 this.categoryTitleEdit = true;
             },
@@ -50,6 +59,42 @@
                     .then(result => console.log(result))
                     .catch(error => console.log(error));
             },
+            // 노트 생성 관련 메소드
+            addNewNote() {
+                const newNote = {
+                    categoryId: this.category.id,
+                    content: this.newNoteContent,
+                    userId: this.$store.state.userId,
+                    position: this.getProperPosition(this.notes.length)
+                };
+
+                const formData = Object.entries(newNote).reduce((acc, val) => {
+                    acc.append(val[0], val[1]);
+                    return acc;
+                }, new FormData());
+
+                fetch(`${this.$store.state.baseURL}/todo/note/`, {
+                    method: 'POST',
+                    credentials: "include",
+                    body: formData,
+                })
+                    .then(result => result.json())
+                    .then(result => {
+                        result.name = this.$store.state.userName;
+                        this.notes.push(result);
+                    })
+                    .catch(error => console.log(error))
+                    .finally(this.cancelNewNote);
+            },
+            cancelNewNote() {
+                this.newNoteContent = '';
+                this.newNoteSectionShow = false;
+            },
+            showNewNoteSection() {
+                this.newNoteSectionShow = true;
+            },
+            // 노트 변경 관련 메소드
+            // 노트 이동 관련 메소드
             dragoverHandler(ev) {
             },
             dropHandler(ev) {
@@ -65,7 +110,7 @@
                 const index = this.notes.findIndex(note => note.id === moveData.noteId);
                 if (index > -1) {
                     const [note] = this.notes.splice(index, 1);
-                    this.$emit('addNote', note, moveData);
+                    this.$emit('moveNote', note, moveData);
                 }
             },
             moveNote(note, moveData) {
@@ -74,10 +119,11 @@
                 this.notes.push(note);
             },
             getProperIndex(offset) {
-                return Math.floor(offset / 54);
+                return Math.floor(offset / 62);
             },
             getProperPosition(index) {
                 let newPosition = Infinity;
+
                 if (index === 0) {
                     newPosition = this.average(0, this.notes[0].position);
                 } else if (1 <= index && index < this.notes.length) {
@@ -90,6 +136,7 @@
             average(...numbers) {
                 return numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
             }
+            // 노트 삭제 관련 메소드
         },
         mounted() {
             fetch(`${this.$store.state.baseURL}/todo/note/${this.category.id}`, {
@@ -107,17 +154,18 @@
 </script>
 
 <style scoped>
-
-
-  .category-content {
+  .section-container {
     height: 5rem;
-    border: 1px black solid;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     min-height: fit-content;
     overflow: hidden;
     flex-grow: 0;
+  }
+
+  .new-note-section textarea {
+    width: 90%;
   }
 
   .category-sub-container {
@@ -135,6 +183,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
+    min-height: unset;
     border: 1px black solid;
     border-radius: 0.5rem;
   }

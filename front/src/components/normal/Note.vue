@@ -2,7 +2,11 @@
   <article :id="note.id" draggable="true" @dragstart="dragStartEventHandler">
     <span class="note-title">title : {{title}}</span>
     <span class="note-author">author : {{name}}</span>
-
+    <section class="note-button-bar">
+      <font-awesome-icon icon="edit" @click=""/>
+      <font-awesome-icon icon="save" @click=""/>
+      <font-awesome-icon icon="trash-alt"/>
+    </section>
   </article>
 </template>
 
@@ -55,5 +59,9 @@
     border: 1px black solid;
     border-radius: 0.5rem;
     margin: 0.5rem;
+  }
+
+  .note-button-bar {
+    justify-content: center;
   }
 </style>
