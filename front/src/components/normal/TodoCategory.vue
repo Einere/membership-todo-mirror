@@ -68,8 +68,9 @@
                     this.$emit('addNote', note, moveData);
                 }
             },
-            addNote(note, newPosition) {
-                note.position = newPosition;
+            moveNote(note, moveData) {
+                note.position = moveData.newPosition;
+                note.category = moveData.to;
                 this.notes.push(note);
             },
             getProperIndex(offset) {

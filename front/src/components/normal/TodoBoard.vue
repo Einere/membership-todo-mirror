@@ -10,7 +10,7 @@
     </section>
     <section class="category-container">
       <todo-category v-for="category in categories" :key="category.id" @deleteNote="deleteNote"
-                     :category="category" ref="cate" @addNote="addNote"></todo-category>
+                     :category="category" ref="cate" @moveNote="moveNote"></todo-category>
     </section>
   </div>
 </template>
@@ -49,9 +49,9 @@
                 // this.$refs.cate.forEach(cate => cate.deleteNote(moveData));
                 this.$refs.cate.filter(cate => cate.$vnode.key === moveData.from)[0].deleteNote(moveData);
             },
-            addNote(note, moveData) {
-                console.log('addNote', moveData, this.category);
-                this.$refs.cate.filter(cate => cate.category.id === moveData.to)[0].addNote(note, moveData.newPosition);
+            moveNote(note, moveData) {
+                console.log('moveNote', moveData, this.category);
+                this.$refs.cate.filter(cate => cate.category.id === moveData.to)[0].moveNote(note, moveData);
 
                 const formData = Object.entries(moveData).reduce((acc, val) => {
                     acc.append(val[0], val[1].toString());

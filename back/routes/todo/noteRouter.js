@@ -13,13 +13,13 @@ router.get('/:categoryId', function (req, res) {
         .catch(error => res.send(error));
 });
 
-router.post('/:categoryId', upload.none(), async function (req, res) {
+router.post('/', upload.none(), async function (req, res) {
     try {
-        const {position} = await todoDB.getMaxPositionByCategoryId(req.params.categoryId);
-        // const {id} = await userDB.getUserByUserId(req.user.userId);
-        // if(position && id) todoDB.createNote(req.params.categoryId, req.body.content, id, position + step)
+        const {position} = await todoDB.getMaxPositionByCategoryId(req.body.categoryId);
+        const {id} = await userDB.getUserByUserId(req.body.userId);
+
         if (position) {
-            todoDB.createNote(req.params.categoryId, req.body.content, req.body.author, position + step)
+            todoDB.createNote(req.body.categoryId, req.body.content, id, position + step)
                 .then(result => res.send(result))
                 .catch(error => res.send(error));
         }
