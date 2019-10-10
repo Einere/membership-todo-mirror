@@ -80,7 +80,7 @@
                 if (index === 0) {
                     newPosition = this.average(0, this.notes[0].position);
                 } else if (1 <= index && index < this.notes.length) {
-                    newPosition = this.average(this.notes[index - 1], this.notes[index]);
+                    newPosition = this.average(this.notes[index - 1].position, this.notes[index].position);
                 } else {
                     newPosition = this.notes[this.notes.length - 1].position + this.$store.state.step;
                 }
