@@ -1,5 +1,6 @@
 <template>
-  <article :id="note.id" draggable="true" @dragstart="dragStartEventHandler">
+  <article :id="note.id" draggable="true" @dragstart="dragStartEventHandler"
+           @dragend="dragendHandler">
     <span class="note-title">title : {{title}}</span>
     <span class="note-author">author : {{name}}</span>
     <section class="note-button-bar">
@@ -46,8 +47,13 @@
                     from: this.category
                 }));
                 e.dataTransfer.setData("application/x-moz-node", e.target);
+
+                e.target.classList.add('dragging');
                 // 직접 노드르 옮길 것이 아니므로, 불필요한 설정인듯?
                 // e.dataTransfer.dropEffect = "move";
+            },
+            dragendHandler(ev) {
+                ev.target.classList.remove('dragging');
             },
             editNoteContent() {
                 this.noteContentEdit = true;
@@ -97,6 +103,10 @@
     border: 1px black solid;
     border-radius: 0.5rem;
     margin: 0.5rem;
+  }
+
+  article.dragging {
+    opacity: 0.5;
   }
 
   .note-button-bar {
