@@ -1,5 +1,5 @@
 <template>
-  <todo-board :board="board" :categories="categories"></todo-board>
+  <todo-board :initBoard="board" :initCategories="categories"></todo-board>
 </template>
 
 <script>

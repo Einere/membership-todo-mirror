@@ -10,24 +10,38 @@
     </section>
     <section class="category-container">
       <todo-category v-for="category in categories" :key="category.id" @deleteNote="deleteNote"
-                     :category="category" ref="cate" @moveNote="moveNote"></todo-category>
+                     :initCategory="category" ref="cate" @moveNote="moveNote"
+                     @deleteCategory="deleteCategory"></todo-category>
+      <new-todo-category :boardId="board.id" @addNewCategory="addNewCategory"></new-todo-category>
     </section>
   </div>
 </template>
 
 <script>
     import TodoCategory from "./TodoCategory";
+    import NewTodoCategory from "./NewTodoCategory";
 
     export default {
         name: "TodoBoard",
         props: {
-            board: Object,
-            categories: Array,
+            initBoard: Object,
+            initCategories: Array,
         },
         data() {
             return {
+                // board: this.initBoard,
+                // categories: this.initCategories,
                 boardTitleEdit: false,
+                newCategory: undefined
             };
+        },
+        computed: {
+            board() {
+                return this.initBoard;
+            },
+            categories() {
+                return this.initCategories;
+            }
         },
         methods: {
             editBoardTitle() {
@@ -67,13 +81,20 @@
                     .then(result => result.json())
                     .then(result => console.log(result))
                     .catch(error => console.log(error));
+            },
+            addNewCategory(newCategory) {
+                this.categories.push(newCategory);
+            },
+            deleteCategory(categoryId) {
+                const index = this.categories.findIndex(category => category.id === categoryId);
+                if (index > -1) this.categories.splice(index, 1);
             }
         },
         mounted() {
-
         },
         components: {
             TodoCategory,
+            NewTodoCategory
         }
     }
 </script>

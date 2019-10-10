@@ -6,7 +6,7 @@
       <font-awesome-icon icon="plus" @click="showNewNoteSection"/>
       <font-awesome-icon icon="edit" @click="editCategoryTitle" v-if="!categoryTitleEdit"/>
       <font-awesome-icon icon="save" @click="saveCategoryTitle" v-else/>
-      <font-awesome-icon icon="trash-alt"/>
+      <font-awesome-icon icon="trash-alt" @click="deleteCategory"/>
     </section>
     <section class="section-container new-note-section" v-if="newNoteSectionShow">
       <textarea v-model="newNoteContent"></textarea>
@@ -28,7 +28,7 @@
     export default {
         name: "TodoCategory",
         props: {
-            category: Object,
+            initCategory: Object,
         },
         data() {
             return {
@@ -39,6 +39,9 @@
             };
         },
         computed: {
+            category() {
+                return this.initCategory;
+            },
             sortedNotes() {
                 return this.notes.sort((a, b) => a.position - b.position);
             }
@@ -57,6 +60,17 @@
                 })
                     .then(result => result.json())
                     .then(result => console.log(result))
+                    .catch(error => console.log(error));
+            },
+            deleteCategory() {
+                fetch(`${this.$store.state.baseURL}/todo/category/${this.category.id}`, {
+                    method: 'DELETE',
+                    credentials: "include",
+                })
+                    .then(result => result.json())
+                    .then(() => {
+                        this.$emit('deleteCategory', this.category.id);
+                    })
                     .catch(error => console.log(error));
             },
             // 노트 생성 관련 메소드
@@ -97,6 +111,7 @@
             // 노트 이동 관련 메소드
             dragoverHandler(ev) {
             },
+
             dropHandler(ev) {
                 // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
                 const moveData = JSON.parse(ev.dataTransfer.getData("text/plain"));
@@ -175,7 +190,7 @@
     flex-wrap: wrap;
     min-height: fit-content;
     overflow: hidden;
-    flex-grow: 0;
+    flex: none;
   }
 
   .new-note-section textarea {
