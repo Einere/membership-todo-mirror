@@ -28,8 +28,8 @@ router.post('/', upload.none(), async function (req, res) {
     }
 });
 
-router.patch('/content/:noteId', upload.none(), function (req, res) {
-    todoDB.updateNoteContentById(req.params.noteId, req.body.content)
+router.patch('/content', upload.none(), function (req, res) {
+    todoDB.updateNoteContentById(req.body.noteId, req.body.content)
         .then(() => res.send(true))
         .catch(error => res.send(error));
 });
